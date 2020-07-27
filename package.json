@@ -1,0 +1,35 @@
+{
+  "name": "webpack-demo",
+  "version": "1.0.0",
+  "description": "webpack study project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lok660/webpack-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lok660/webpack-demo/issues"
+  },
+  "homepage": "https://github.com/lok660/webpack-demo#readme",
+  "devDependencies": {
+    "amfe-flexible": "^2.2.1",
+    "autoprefixer": "^9.8.5",
+    "css-loader": "^4.0.0",
+    "file-loader": "^6.0.0",
+    "less": "^3.12.2",
+    "less-loader": "^6.2.0",
+    "postcss-loader": "^3.0.0",
+    "px2rem-loader": "^0.1.9",
+    "style-loader": "^1.2.1",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.44.0",
+    "webpack-cli": "^3.3.12"
+  }
+}
