@@ -1,8 +1,10 @@
-function Header() {
-	var dom = document.getElementById('root');
-	var header = document.createElement('div');
-	header.innerText = '头部内容';
-	dom.append(header);
-}
+export default () => {
+  var dom = document.getElementById('root')
+  var header = document.createElement('div')
 
-export default Header;
+  header.innerText = '头部内容'
+  header.classList.add('wrapper')
+  dom.append(header)
+
+  let a = 1
+}

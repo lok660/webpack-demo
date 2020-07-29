@@ -1,5 +1,10 @@
 const path = require('path');
 
+const webpack = require('webpack')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
+
 module.exports = {
   //  模式:开发或生产
   mode: 'development',
@@ -10,6 +15,11 @@ module.exports = {
   //  使用的loader
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
       {
         // 命中less文件
         test: /\.less$/,
@@ -56,12 +66,27 @@ module.exports = {
       }
     ]
   },
+  devtool: 'source-map',
   //  打包文件的出口
   output: {
     //  采用cdn
-    publicPath: 'http://cdn.com.cn',
+    // publicPath: 'http://cdn.com.cn',
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist')
+  },
+  plugins: [
+    // new htmlWebpackPlugin({
+    //   template: 'src/index.html'  //  模板文件
+    // }),
+    new CleanWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  devServer: {
+    contentBase: './dist',
+    open: true,
+    port: 8080,
+    hot: true,
+    hotOnly: true
   }
 
 }
