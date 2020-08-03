@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 
 
 module.exports = {
@@ -72,21 +73,35 @@ module.exports = {
     //  采用cdn
     // publicPath: 'http://cdn.com.cn',
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'bundle')
   },
   plugins: [
-    // new htmlWebpackPlugin({
-    //   template: 'src/index.html'  //  模板文件
-    // }),
+    new htmlWebpackPlugin({
+      template: 'src/index.html'  //  模板文件
+    }),
     new CleanWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackExternalsPlugin({
+      externals: [
+        {
+          module: 'react', // 模块名称
+          entry: 'https://11.url.cn/now/lib/16.2.0/react.min.js', // 引入的cdn
+          global: 'React', // 创建一个全局对象 React
+        },
+        {
+          module: 'react-dom',
+          entry: 'https://11.url.cn/now/lib/16.2.0/react-dom.min.js',
+          global: 'ReactDOM',
+        },
+      ]
+    })
   ],
-  devServer: {
-    contentBase: './dist',
-    open: true,
-    port: 8080,
-    hot: true,
-    hotOnly: true
-  }
+  // devServer: {
+  //   contentBase: './dist',
+  //   open: true,
+  //   port: 8080,
+  //   hot: true,
+  //   hotOnly: true
+  // }
 
 }

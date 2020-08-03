@@ -1,7 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //  清除dist
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');  //  友好提示插件
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const MiniCssExtractPlugin = require('mini-css-extract-plugin') //  css 压缩
 
 module.exports = {
   entry: {
@@ -9,6 +11,11 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.ts|tsx$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -56,11 +63,20 @@ module.exports = {
           process.exit(1)
         }
       })
-    }
+    },
+    // new BundleAnalyzerPlugin({     //  显示构建内容大小
+    //   analyzerHost: '127.0.0.1',
+    //   analyzerPort: 8889,
+    //   openAnalyzer: false
+    // })
+    new MiniCssExtractPlugin({
+      filename: '[name].css', // 直接引用【index.html（入口文件） 引入的名字】
+      chunkFilename: '[name].chunk.css' // 间接引用【其他地方引入使用的名字】
+    }),
   ],
-  output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, '../dist')
-  },
+  // output: {
+  //   filename: 'main.js',
+  //   path: path.resolve(__dirname, '../dist')
+  // },
   stats: 'errors-only',
 }

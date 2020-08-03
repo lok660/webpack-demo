@@ -4,19 +4,35 @@ import _ from 'lodash'
 import '@babel/polyfill'
 import './index.less'
 
+import React from 'react'
+import { render } from 'react-dom'
 
-console.log(_.join(['a', 'b', 'c'], '***'))
+
+import getComponent from './async.js'
 
 
+// console.log(_.join(['a', 'b', 'c'], '***'))
 
-header()
 
-add(1, 2)
+getComponent().then(element => {
+  document.body.appendChild(element)
+})
 
-const a = () => {
+document.addEventListener('click', () => {
+  getComponent()
+})
+
+
+// header()
+
+// add(1, 2)
+
+const App = () => {
   return (
     <div>
-      11111111111111
+      hello,React!!!
     </div>
   )
 }
+
+render(<App />, document.getElementById('root'))
