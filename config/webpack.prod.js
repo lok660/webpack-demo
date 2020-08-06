@@ -1,18 +1,46 @@
-const path = require('path')
-const { merge } = require('webpack-merge');
-const commonConfig = require('./webpack.common.js');
+const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const prodConfig = {
-  mode: 'production',
-  devtool: 'cheap-module-source-map', // production
-  externals: 'lodash',
-  output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: 'library.js', // 打包出来的名字
-    library: 'root', // 用 <script> 方式引入，全局的变量名
-    libraryTarget: 'this', // 适用于 AMD、CommonJs、ES6 module引入方式
-    libraryExport: 'default',
-  }
+	mode: 'production',
+  // devtool: 'cheap-module-source-map', // production
+  module: {
+		rules: [{
+			test: /\.less$/,
+			use: [
+				{
+					loader: MiniCssExtractPlugin.loader,
+					options: {
+						publicPath: '/public/path/to/',
+						hmr: true,
+					},
+				},
+				{
+					loader: 'css-loader',
+					options: {
+						importLoaders: 2,
+					}
+				},
+				'less-loader',
+				'postcss-loader',
+			]
+		}]
+  },
+  plugins: [
+		new MiniCssExtractPlugin({
+			filename: '[name].css', // 直接引用
+			chunkFilename: '[name].chunk.css' // 间接引用
+    }),
+  ],
+  optimization: {
+		minimizer: [new OptimizeCSSAssetsPlugin({})]
+	},
+	output: {
+		filename: "[name].[contenthash].js",
+		chunkFilename: '[name].[contenthash].js', // 简介引入代码输出的名字
+		path: path.resolve(__dirname, '../dist')
+	}
 }
 
-module.exports = merge(commonConfig, prodConfig);
+module.exports = prodConfig;

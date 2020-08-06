@@ -1,38 +1,15 @@
-import { add } from './math'
-import header from './header'
-import _ from 'lodash'
-import '@babel/polyfill'
-import './index.less'
+// import _ from 'lodash';
+// import $ from 'jquery';
+// import { ui } from './jquery.ui.js'
 
-import React from 'react'
-import { render } from 'react-dom'
+// ui();
+// console.log('---123---');
+// const dom = $('<div>');
+// dom.html(_.join(['Hello', 'darrell123'], ' '));
+// $('body').append(dom);
+this.a = 111;
 
+console.log(this);
+console.log(this.a);
 
-import getComponent from './async.js'
-
-
-// console.log(_.join(['a', 'b', 'c'], '***'))
-
-
-getComponent().then(element => {
-  document.body.appendChild(element)
-})
-
-document.addEventListener('click', () => {
-  getComponent()
-})
-
-
-// header()
-
-// add(1, 2)
-
-const App = () => {
-  return (
-    <div>
-      hello,React!!!
-    </div>
-  )
-}
-
-render(<App />, document.getElementById('root'))
+console.log(this === window);

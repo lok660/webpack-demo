@@ -1,14 +1,9 @@
-//  管理 babel 配置
-
 {
-  "presets": [
+	"presets": [
     [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "usage"
-      }
+      "@babel/preset-env"
     ],
     "@babel/preset-react"
   ],
-  "plugins": ["dynamic-import-webpack"]
+  "plugins": ["@babel/plugin-transform-runtime"]
 }
