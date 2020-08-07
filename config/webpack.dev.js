@@ -5,7 +5,7 @@ const webpack = require('webpack');
 
 const devConfig = {
 	mode: 'development',
-  devtool: 'cheap-module-eval-source-map', // development
+	devtool: 'cheap-module-eval-source-map', // development
 	module: {
 		rules: [{
 			test: /\.less$/,
@@ -32,17 +32,27 @@ const devConfig = {
 		}]
 	},
 	devServer: {
+		overlay: true,
 		contentBase: './dist',
 		// open: true,
 		port: 8080,
-		hot: true
+		hot: true,
+		proxy: {
+			'/movie/': {
+				target: 'https://douban.uieee.com/v2/',
+				secure: false,
+				pathRewrite: {
+					'top250': 'in_theaters'
+				},
+			}
+		}
 	},
-  plugins: [
+	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new MiniCssExtractPlugin({
 			filename: '[name].css', // 直接引用
 			chunkFilename: '[name].chunk.css' // 间接引用
-    }),
+		}),
 	],
 	output: {
 		filename: "[name].bundle.js",
