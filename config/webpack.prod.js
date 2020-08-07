@@ -39,8 +39,8 @@ const prodConfig = {
 	output: {
 		filename: "[name].[contenthash].js",
 		chunkFilename: '[name].[contenthash].js', // 简介引入代码输出的名字
-		// path: path.resolve(__dirname, '../dist')		
-		path: path.resolve(__dirname, '../dist-client')	//	ssr
+		path: path.resolve(__dirname, '../dist')
+		// path: path.resolve(__dirname, '../dist-client')	//	ssr
 	}
 }
 

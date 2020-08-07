@@ -12,32 +12,38 @@ const commonConfig = {
 		main: "./src/index.js",
 	},
 	module: {
-		rules: [{
-			test: /\.js$/,
-			exclude: /node_modules/,
-			use: [
-				{
-					loader: 'babel-loader',
+		rules: [
+			{
+				test: /\.tsx?$/,
+				use: 'ts-loader',
+				exclude: /node_modules/
+			},
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				use: [
+					{
+						loader: 'babel-loader',
+						options: {
+							plugins: ["@babel/plugin-transform-runtime"]
+						}
+					}
+				]
+			}, {
+				test: /\.(png|jpg|gif)$/,
+				use: {
+					loader: 'file-loader',
 					options: {
-						plugins: ["@babel/plugin-transform-runtime"]
+						name: '[name]_[hash].[ext]',
+						outputPath: 'images/',
 					}
 				}
-			]
-		}, {
-			test: /\.(png|jpg|gif)$/,
-			use: {
-				loader: 'file-loader',
-				options: {
-					name: '[name]_[hash].[ext]',
-					outputPath: 'images/',
+			}, {
+				test: /\.(eot|ttf|svg|woff|woff2)$/,
+				use: {
+					loader: 'file-loader',
 				}
-			}
-		}, {
-			test: /\.(eot|ttf|svg|woff|woff2)$/,
-			use: {
-				loader: 'file-loader',
-			}
-		}]
+			}]
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
