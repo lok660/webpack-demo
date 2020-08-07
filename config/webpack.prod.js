@@ -4,8 +4,8 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const prodConfig = {
 	mode: 'production',
-  // devtool: 'cheap-module-source-map', // production
-  module: {
+	// devtool: 'cheap-module-source-map', // production
+	module: {
 		rules: [{
 			test: /\.less$/,
 			use: [
@@ -26,20 +26,21 @@ const prodConfig = {
 				'postcss-loader',
 			]
 		}]
-  },
-  plugins: [
+	},
+	plugins: [
 		new MiniCssExtractPlugin({
 			filename: '[name].css', // 直接引用
 			chunkFilename: '[name].chunk.css' // 间接引用
-    }),
-  ],
-  optimization: {
+		}),
+	],
+	optimization: {
 		minimizer: [new OptimizeCSSAssetsPlugin({})]
 	},
 	output: {
 		filename: "[name].[contenthash].js",
 		chunkFilename: '[name].[contenthash].js', // 简介引入代码输出的名字
-		path: path.resolve(__dirname, '../dist')
+		// path: path.resolve(__dirname, '../dist')		
+		path: path.resolve(__dirname, '../dist-client')	//	ssr
 	}
 }
 

@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 const devConfig = require('./webpack.dev.js');
 const prodConfig = require('./webpack.prod.js');
 const merge = require('webpack-merge');
@@ -11,15 +12,15 @@ const commonConfig = {
 		main: "./src/index.js",
 	},
 	module: {
-		rules: [{ 
-			test: /\.js$/, 
-			exclude: /node_modules/, 
+		rules: [{
+			test: /\.js$/,
+			exclude: /node_modules/,
 			use: [
 				{
-					loader: 'babel-loader'
-				}, 
-				{
-					loader: 'imports-loader?this=>window'
+					loader: 'babel-loader',
+					options: {
+						plugins: ["@babel/plugin-transform-runtime"]
+					}
 				}
 			]
 		}, {
@@ -43,11 +44,11 @@ const commonConfig = {
 		new HtmlWebpackPlugin({
 			template: 'src/index.html',
 		}),
-		new BundleAnalyzerPlugin({
-			analyzerHost: '127.0.0.1',
-			analyzerPort: 8889,
-			openAnalyzer: false,
-		}),
+		// new BundleAnalyzerPlugin({
+		// 	analyzerHost: '127.0.0.1',
+		// 	analyzerPort: 8889,
+		// 	openAnalyzer: false,
+		// }),
 		new webpack.ProvidePlugin({
 			$: 'jquery',
 			_: 'lodash',
@@ -73,9 +74,9 @@ const commonConfig = {
 	performance: false, // 关闭性能上的一些问题
 }
 
-module.exports = (production) => {
-	console.log('production', production);
-	if (production) {
+module.exports = env => {
+	console.log('env', env);
+	if (env) {
 		return merge(commonConfig, prodConfig);
 	} else {
 		return merge(commonConfig, devConfig);
