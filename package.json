@@ -13,7 +13,7 @@
     "build": "webpack --env production --config ./config/webpack.common.js",
     "analyz": "NODE_ENV=production npm_config_report=true npm run build",
     "build:ssr": "webpack --config ./config/webpack.ssr.js",
-    "lint":"eslint --ext .js,.tsx ./src"
+    "lint": "eslint --ext .js,.tsx ./src"
   },
   "author": "",
   "license": "ISC",

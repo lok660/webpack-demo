@@ -1,9 +1,21 @@
+//  插件在presets前运行
+//  插件plugins顺序从前往后排列
+//  预设presets顺序是颠倒的(从后往前)
 {
-	"presets": [
-    [
-      "@babel/preset-env"
-    ],
-    "@babel/preset-react"
-  ],
-  "plugins": ["@babel/plugin-proposal-class-properties", "@babel/plugin-transform-runtime"]
+  "presets": [["@babel/preset-env"], "@babel/preset-react"],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-runtime"
+  ]
 }
+
+//  @babel/preset-env 对目标浏览器缺少的功能进行代码转换和加载 polyfill
+
+//  @babel/plugin-transform-runtime 可以重复使用Babel注入的帮助程序,节省代码大小的插件
+
+/*
+  @babel/preset-env
+  @babel/preset-flow
+  @babel/preset-react
+  @babel/preset-typescript
+*/
